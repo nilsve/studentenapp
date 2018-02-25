@@ -8,7 +8,7 @@ import {
 import thunk from 'redux-thunk';
  
 import apisReducers from './apis/reducers';
-import apisMiddleware from './apis/middleware/setup';
+import apisMiddleware from './apis/middleware/apis';
 import authReducer from './auth/reducers';
 
 const rootReducer = combineReducers({

@@ -8,20 +8,30 @@ import {
   Button
 } from 'react-native';
 
+import { 
+  ThemeProvider,
+} from 'react-native-material-ui';
+
 import store from './store';
 
 import EnsureSocket from './apis/components/EnsureSocket';
-import LoginForm from './auth/components/LoginForm';
+import EnsureUser from './auth/components/EnsureUser';
+
+import theme from './theme';
 
 export default class App extends React.Component {
   render() { 
     return (
       <Provider store={store}>
-        <View style={styles.container}>
-          <EnsureSocket>
-            <LoginForm />
-          </EnsureSocket>
-        </View>
+        <ThemeProvider uiTheme={theme}>
+          <View style={styles.container}>
+            <EnsureSocket>
+              <EnsureUser>
+                <Text>ingelogd</Text>
+              </EnsureUser>
+            </EnsureSocket>
+          </View>
+        </ThemeProvider>
       </Provider>
     );
   }

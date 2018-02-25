@@ -1,6 +1,6 @@
 import {
     CONNECT_APIS,
-} from '../constants/connection';
+} from '../constants';
 
 export function connect(code) {
     return {

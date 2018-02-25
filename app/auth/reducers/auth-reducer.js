@@ -1,5 +1,5 @@
 import { 
-    LOGIN,
+    LOGIN_SUCCESS,
 } from "../constants";
 
 const initialState = { 
@@ -8,7 +8,8 @@ const initialState = {
 
 export default function (state = initialState, action) {
     switch (action.type) {
-        case LOGIN:
+        case LOGIN_SUCCESS:
+            console.log('login succes');
             return {
                 ...state,
                 ...action.data,

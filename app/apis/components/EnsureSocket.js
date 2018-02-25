@@ -34,7 +34,6 @@ class EnsureSocket extends React.Component {
 
     connect(connection) {
         if (connection.connecting || connection.connected) {
-            console.log('Niet: ', connection);
             return;
         } else {
             this.props.connectApis(); 

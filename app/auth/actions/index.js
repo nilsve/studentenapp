@@ -1,1 +1,1 @@
-export {default as loginActions} from './loginActions';
+export * from './login';
