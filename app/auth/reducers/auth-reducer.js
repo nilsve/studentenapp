@@ -1,8 +1,12 @@
 import { 
-    LOGIN 
-} from "../actions/login";
- 
-export default authReducer = (state = dataState, action) => {
+    LOGIN,
+} from "../constants";
+
+const initialState = { 
+    loggedOn: false,
+};
+
+export default function (state = initialState, action) {
     switch (action.type) {
         case LOGIN:
             return {

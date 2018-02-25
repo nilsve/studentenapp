@@ -9,7 +9,7 @@ import {
   Button
 } from 'react-native';
 
-import {connect} from 'redux';
+import {connect} from 'react-redux';
 
 import {
     login,
@@ -19,13 +19,14 @@ class LoginForm extends React.Component {
 
     static propTypes = {
         loggedOn: PropTypes.bool.isRequired,
+        login: PropTypes.func.isRequired,
     }
 
     render() { 
         return (
         <View style={styles.container}>
             {
-                loggedOn ? <View>Ingelogt!</View> : <View>nope</View>
+                this.props.loggedOn ? <Text>Ingelogt!</Text> : <Text>nope</Text>
             }
             <Button 
                 onPress={this.onButtonClick}
@@ -40,6 +41,7 @@ class LoginForm extends React.Component {
 }
 
 function mapStateToProps(state, props) {
+    console.log('Logged on ', state.auth.loggedOn)
     return {
         loggedOn: state.auth.loggedOn,
     };

@@ -10,34 +10,20 @@ import {
 
 import store from './store';
 
+import EnsureSocket from './apis/components/EnsureSocket';
+import LoginForm from './auth/components/LoginForm';
+
 export default class App extends React.Component {
   render() { 
     return (
       <Provider store={store}>
         <View style={styles.container}>
-          <View style={styles.row}>
-            <Button 
-              onPress={this.onButtonClick}
-              title="Hoi bla test" />
-            <Button 
-              onPress={this.onButtonClick}
-              title="Hoi bla test" />
-          </View> 
-          <View style={styles.row}>
-            <Button 
-              onPress={this.onButtonClick}
-              title="Hoi bla test" /> 
-            <Button 
-              onPress={this.onButtonClick}
-              title="Hoi bla test" />
-          </View> 
+          <EnsureSocket>
+            <LoginForm />
+          </EnsureSocket>
         </View>
       </Provider>
     );
-  }
-
-  onButtonClick = () => {
-    alert('test');
   }
 }
 
