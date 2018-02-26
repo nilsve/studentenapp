@@ -15,9 +15,12 @@ import {
 import store from './store';
 
 import EnsureSocket from './apis/components/EnsureSocket';
-import EnsureUser from './auth/components/EnsureUser';
+
+import Router from './router';
 
 import theme from './theme';
+
+import { createRootNavigator } from "./router";
 
 export default class App extends React.Component {
   render() { 
@@ -26,9 +29,7 @@ export default class App extends React.Component {
         <ThemeProvider uiTheme={theme}>
           <View style={styles.container}>
             <EnsureSocket>
-              <EnsureUser>
-                <Text>ingelogd</Text>
-              </EnsureUser>
+              <Router />
             </EnsureSocket>
           </View>
         </ThemeProvider>
@@ -37,15 +38,12 @@ export default class App extends React.Component {
   }
 }
 
+
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
     flexDirection: 'row',
-  },
-  row: {
-    flexDirection: 'column'
-  },
+  }, 
 });

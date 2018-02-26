@@ -12,4 +12,9 @@ export default {
             height: 50,
         },
     },
+    button: {
+        container: {
+            margin: 5,
+        },
+    },
 };

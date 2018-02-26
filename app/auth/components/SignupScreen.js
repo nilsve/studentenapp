@@ -22,16 +22,20 @@ import {
 
 import logo from '../../resources/logo.png';
 
-class LoginScreen extends React.Component {
+import {StackNavigator} from 'react-navigation';
+
+
+
+class LoginForm extends React.Component {
 
     static propTypes = {
         login: PropTypes.func.isRequired,
-        navigation: PropTypes.object.isRequired,
     }
 
     state = {
         username: '',
         password: '',
+        password2: '',
     };
 
     render() { 
@@ -42,7 +46,6 @@ class LoginScreen extends React.Component {
                 value={this.state.username}
                 style={styles.input}
                 placeholder="Gebruikersnaam"
-                autoFocus={true}
                 autoCapitalize="none"
                 autoCorrect={false}
                 onChangeText={(value) => this.setState({username: value,})}
@@ -54,11 +57,13 @@ class LoginScreen extends React.Component {
                 secureTextEntry
                 onChangeText={(value) => this.setState({password: value,})}
                 />
-            <Button 
-                raised
-                primary
-                onPress={this.handleLogin} 
-                text="Inloggen" />
+            <TextInput
+                value={this.state.password2}
+                style={styles.input}
+                placeholder="Herhaal wachtwoord"
+                secureTextEntry
+                onChangeText={(value) => this.setState({password2: value,})}
+                />
             <Button 
                 raised
                 onPress={this.handleRegister}
@@ -74,7 +79,7 @@ class LoginScreen extends React.Component {
     }
 
     handleRegister = () => {
-        this.props.navigation.navigate('Signup');
+
     }
 }
 
@@ -84,7 +89,7 @@ function mapDispatchToProps(dispatch) {
     }
 }
 
-export default connect(null, mapDispatchToProps)(LoginScreen);
+export default connect(null, mapDispatchToProps)(LoginForm);
 
 const styles = StyleSheet.create({
   container: {
