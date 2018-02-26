@@ -4,44 +4,56 @@ import config from '../../settings.json';
 import {
     CONNECT_APIS,
     CONNECTED_APIS,
+    DISCONNECTED_APIS,
     API_REQUEST,
 } from '../constants';
 
 let socket = null;
 
 async function connect(dispatch) {
-    if (!socket) {
-        socket = new Socket();
+    socket = new Socket();
 
-        // TIJDELIJK
+    socket.connectWebSocket(config.api.domain, () => {
+        // Connected
         dispatch({
             type: CONNECTED_APIS,
+        });
+    }, (error) => {
+        // Disconnected
+        dispatch({
+            type: DISCONNECTED_APIS,
+        });
+    }, (message) => {
+        // Bericht ontvangen
+        dispatch({
+            ...message,// Er wordt verwacht dat er een soort redux bericht terug wordt gestuurd vanuit de server
         })
-        // await socket.connectWebSocket(config.api.domain);
-    }
+    });
 }
 
 async function handleApiRequest(dispatch, apiName, parameters) {
     console.log('API name: ', apiName);
     console.log('Parameters: ', parameters);
 
-    //TODO: dit weghalen! dit is puur voor test
-    if (apiName === 'LOGIN') {
-        dispatch({
-            type: 'LOGIN_SUCCESS',
-        });
-    }
+    socket.sendMessage({
+        apiName,
+        parameters,
+    });
 }
 
 export default store => next => action => {
     next(action);
-    
+
+    const connectionStatus = store.getState().apis.connection;
+
     switch (action.type) {
         case CONNECT_APIS:
-            connect(store.dispatch);
+            if (!connectionStatus.connected && !connectionStatus.connecting) {
+                connect(store.dispatch);
+            }
             break;
         case API_REQUEST:
-            if (store.getState().apis.connection.connected) {
+            if (connectionStatus.connected) {
                 handleApiRequest(store.dispatch, action.apiName, action.parameters);
             } else {
                 console.warn('Trashed api request: ', apiName);

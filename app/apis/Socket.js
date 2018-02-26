@@ -1,20 +1,17 @@
 export default class Socket {
-    connectWebSocket(address) {
-        console.log('Connecting to ', address);
-        this.ws = new WebSocket(address);
-    
-        this.ws.onopen = function() {
-          console.log('websocket connected');
-        };
+  connectWebSocket(address, onConnected, onDisconnected, onMessage) {
+    console.log('Connecting to ', address);
+    this.ws = new WebSocket(address);
 
-        this.ws.onerror = (error) => {
-          // console.log('Fout: ', error);
-        }
+    this.ws.onopen = onConnected;
+    this.ws.onerror = onDisconnected;
+    this.ws.onclose = onDisconnected;
 
-        this.ws.onclose = (message) => {
-          // console.log('close ' , message)
-        }
-    
-        this.ws.onmessage = this.handleMessage;
-      }
+    this.ws.onmessage = onMessage;
+  }
+
+  sendMessage(message) {
+    // TODO: Validatie oid
+    this.ws.send(message);
+  }
 }
